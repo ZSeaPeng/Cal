@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -30,13 +31,20 @@ public class CalFrame extends JFrame {
         for (JButton b:getjButtons_left()){
             jPanel1.add(b);
         }
-        JPanel jPanel2 = new JPanel(new BorderLayout());
+        JPanel jPanel2 = new JPanel(new GridLayout(4,5,0,5));
         for (JButton b :getJbutton_right()){
             jPanel2.add(b);
         }
+        JPanel jPanel3 = new JPanel(new GridLayout(1,3,0,5));
+        for (JButton b:getJbutton_right_top()){
+            jPanel3.add(b);
+        }
+        JPanel j = new JPanel(new BorderLayout());
         this.add(jPanel);
-        //this.add(jPanel2);
-        jPanel.add(jPanel1);
+        jPanel.add(jPanel1,BorderLayout.WEST);
+        j.add(jPanel3,BorderLayout.NORTH);
+        j.add(jPanel2,BorderLayout.CENTER);
+        jPanel.add(j);
         this.setVisible(true);
     }
 
@@ -60,6 +68,7 @@ public class CalFrame extends JFrame {
         for (int i=0;i<this.str_left.length;i++){
             JButton button = new JButton(this.str_left[i]);
             button.setForeground(Color.red);
+            button.addActionListener(getActionListener());
             result[i] = button;
         }
         return result;
@@ -68,21 +77,35 @@ public class CalFrame extends JFrame {
         JButton[] result = new JButton[str_right.length];
         for (int i=0;i<this.str_right.length;i++){
             JButton button = new JButton(this.str_right[i]);
+            if (i==3||i==8||i==18||i==19||i==13){
+                button.setForeground(Color.red);
+            }
+            button.addActionListener(getActionListener());
             result[i] = button;
         }
         return result;
     }
-    //public ActionListener getActionListener(){
-    //    if (actionListener == null){
-    //        new ActionListener() {
-    //            @Override
-    //            public void actionPerformed(ActionEvent e) {
-    //                String cmd = e.getActionCommand();
-    //                String result = null;
-    //
-    //            }
-    //        }
-    //    }
-    //    return actionListener;
-    //}
+    public JButton[] getJbutton_right_top(){
+        JButton[] result = new JButton[str_right_top.length];
+        for (int i=0;i<str_right_top.length;i++){
+            JButton button = new JButton(str_right_top[i]);
+            button.setForeground(Color.red);
+            button.addActionListener(getActionListener());
+            result[i] = button;
+        }
+        return result;
+    }
+    public ActionListener getActionListener(){
+        if (actionListener == null){
+            actionListener = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String cmd = e.getActionCommand();
+                    jTextField.setText(cmd);
+                    System.out.println(cmd);
+                }
+            };
+        }
+        return actionListener;
+    }
 }
