@@ -30,8 +30,13 @@ public class CalFrame extends JFrame {
         for (JButton b:getjButtons_left()){
             jPanel1.add(b);
         }
-        this.add(jPanel1);
+        JPanel jPanel2 = new JPanel(new BorderLayout());
+        for (JButton b :getJbutton_right()){
+            jPanel2.add(b);
+        }
         this.add(jPanel);
+        //this.add(jPanel2);
+        jPanel.add(jPanel1);
         this.setVisible(true);
     }
 
@@ -55,6 +60,14 @@ public class CalFrame extends JFrame {
         for (int i=0;i<this.str_left.length;i++){
             JButton button = new JButton(this.str_left[i]);
             button.setForeground(Color.red);
+            result[i] = button;
+        }
+        return result;
+    }
+    public JButton[] getJbutton_right(){
+        JButton[] result = new JButton[str_right.length];
+        for (int i=0;i<this.str_right.length;i++){
+            JButton button = new JButton(this.str_right[i]);
             result[i] = button;
         }
         return result;
