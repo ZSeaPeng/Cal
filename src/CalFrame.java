@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
  * Created by zseapeng on 2016/5/14.
  */
 public class CalFrame extends JFrame {
+    private CalService calService = new CalService();
     private JTextField jTextField = null;
     private String[] str_left = {"","Mc","MR","MS","M+"};
     private String[] str_right_top = {"Back","CE","C"};
@@ -23,7 +24,7 @@ public class CalFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(CAL_WIDTH,CAL_HIGHT);
         this.setLocation(200,300);
-        this.setResizable(false);
+        //this.setResizable(false);
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BorderLayout(10,1));
         jPanel.add(getjTextField(), BorderLayout.NORTH);
@@ -57,12 +58,12 @@ public class CalFrame extends JFrame {
         return jTextField;
     }
 
-    public JButton getjButton() {
-        if (jButton == null){
-            jButton = new JButton();
-        }
-        return jButton;
-    }
+    //public JButton getjButton() {
+    //    if (jButton == null){
+    //        jButton = new JButton();
+    //    }
+    //    return jButton;
+    //}
     public JButton[] getjButtons_left(){
         JButton[] result = new JButton[str_left.length];
         for (int i=0;i<this.str_left.length;i++){
@@ -95,17 +96,31 @@ public class CalFrame extends JFrame {
         }
         return result;
     }
-    public ActionListener getActionListener(){
-        if (actionListener == null){
-            actionListener = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String cmd = e.getActionCommand();
-                    jTextField.setText(cmd);
-                    System.out.println(cmd);
-                }
-            };
-        }
-        return actionListener;
-    }
+   public ActionListener getActionListener(){
+       if (actionListener == null){
+
+           actionListener = new ActionListener() {
+               String result = null;
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   String cmd = e.getActionCommand();
+
+                   if (cmd.equals("=")) {
+                       result = calService.calEnd();
+                       jTextField.setText(result);
+                       result = null;
+                       return;
+                   }
+                   else if (result!=null){
+                       result += calService.calMethod(cmd);
+                   }else if (result == null){
+                       result = calService.calMethod(cmd);
+                   }
+                   jTextField.setText(result);
+
+               }
+           };
+       }
+       return actionListener;
+   }
 }
