@@ -110,6 +110,9 @@ public class CalFrame extends JFrame {
                        jTextField.setText(result);
                        result = null;
                        return;
+                   }else if (cmd.equals("C")){
+                       result = calService.clearAll();
+                       return;
                    }
                    else if (result!=null){
                        result += calService.calMethod(cmd);

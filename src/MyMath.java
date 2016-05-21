@@ -27,6 +27,7 @@ public class MyMath {
         //除法实现
         BigDecimal first = new BigDecimal(number1);
         BigDecimal second = new BigDecimal(number2);
-        return first.divide(second).doubleValue();
+        return first.divide(second, 6, BigDecimal.ROUND_HALF_UP)
+                .doubleValue();
     }
 }
