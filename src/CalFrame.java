@@ -112,12 +112,16 @@ public class CalFrame extends JFrame {
                        return;
                    }else if (cmd.equals("C")){
                        result = calService.clearAll();
+                       jTextField.setText(result);
+                       result = null;
                        return;
-                   }
+                   }else if (cmd.equals("Back")){
+                       result = calService.calMethod(cmd,jTextField.getText());
+                     }
                    else if (result!=null){
-                       result += calService.calMethod(cmd);
+                       result += calService.calMethod(cmd,jTextField.getText());
                    }else if (result == null){
-                       result = calService.calMethod(cmd);
+                       result = calService.calMethod(cmd,jTextField.getText());
                    }
                    jTextField.setText(result);
 

@@ -8,7 +8,8 @@ public class CalService {
     private List<String> tempNum = new ArrayList<String>();
     private List<String> number = new ArrayList<String>();
     private List<String> operator = new ArrayList<String>();
-
+    private String numberStr = "0123456789.";
+    private String operatorStr = "+-*/";
     public void getNum(){
         String temp = "";
         for (int i=0;i<tempNum.size();i++){
@@ -17,33 +18,32 @@ public class CalService {
         number.add(temp);
         tempNum.clear();
     }
-    public String calMethod(String cmd){
-        //if (!cmd.equals("+")&&!cmd.equals("=")&&!cmd.equals("-")&&!cmd.equals("*")&&!cmd.equals("/")){
-        //    tempNum.add(cmd);
-        //}
-        if (cmd.equals("+")){
-            operator.add(cmd);
-            getNum();
-        }
-        else if (cmd.equals("-")){
-            operator.add(cmd);
-            getNum();
-        }
-        else if (cmd.equals("*")){
-            operator.add(cmd);
-            getNum();
-        }
-        else if (cmd.equals("/")){
-            operator.add(cmd);
-            getNum();
+    public String calMethod(String cmd,String text){
+         if (operatorStr.indexOf(cmd)!=-1){
+                operator.add(cmd);
+                getNum();
+          } else if (cmd.equalsIgnoreCase("back")){
+             String string = text.substring(text.length()-1,text.length());
+             System.out.println(string+"_________"+text+"________________");
+             if (operatorStr.indexOf(string)!=-1&&operator.size()>0) operator.remove(operator.size()-1);
+            else if (tempNum.size()>0)tempNum.remove(tempNum.size()-1);
+             else {
+                 int len = number.get(number.size() - 1).length();
+                 System.out.println("len="+len);
+                 if (len==0) number.remove(number.size()-1);
+                 else number.set(number.size() - 1, number.get(number.size() - 1).substring(0, len-1));
+             }
+                 return backText(text);
         }else{
         tempNum.add(cmd);}
-        for (String s :number){
-            System.out.println("numberList=   "+s);
-        }
-        for (String s :operator){
-            System.out.println("operatorList=   "+s);
-        }
+        System.out.println("tempNumSize   "+tempNum.size());
+        System.out.println("opSI   "+operator.size());
+        //for (String s :number){
+        //    System.out.println("numberList=   "+s);
+        //}
+        //for (String s :operator){
+        //    System.out.println("operatorList=   "+s);
+        //}
         return show(cmd);
     }
     public String show(String cmd){
@@ -75,6 +75,9 @@ public class CalService {
         tempNum.clear();
         number.clear();
         operator.clear();
-        return "";
+        return "0";
+    }
+    public String backText(String text){
+        return text.equals("0") || text.equals("") ? "0" : text.substring(0,text.length() - 1);
     }
 }
