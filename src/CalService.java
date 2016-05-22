@@ -36,7 +36,12 @@ public class CalService {
                  else number.set(number.size() - 1, number.get(number.size() - 1).substring(0, len-1));
              }
                  return backText(text);
-        }else if (cmd.equalsIgnoreCase("1/x")){
+        }
+         //else if (cmd.equalsIgnoreCase("%")){
+        //     getNum();
+        //     return MyMath.baifenhao()
+        // }
+         else if (cmd.equalsIgnoreCase("1/x")){
              return "  1/"+text+"= "+reciprocal(text);
          }else if (cmd.equalsIgnoreCase("sqrt")){
              getNum();

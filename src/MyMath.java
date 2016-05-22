@@ -30,4 +30,9 @@ public class MyMath {
         return first.divide(second, 6, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
     }
+    static double baifenhao(double number1,double number2){
+
+        double n1 = mulitiply(number1,number2);
+        return divide(n1,100);
+    }
 }

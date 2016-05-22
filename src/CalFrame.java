@@ -110,6 +110,8 @@ public class CalFrame extends JFrame {
                        jTextField.setText(result);
                        result = null;
                        return;
+                   }else if (cmd.equalsIgnoreCase("%")){
+
                    }else if (cmd.equals("C")||cmd.equalsIgnoreCase("CE")){
                        result = calService.clearAll();
                        jTextField.setText(result);
