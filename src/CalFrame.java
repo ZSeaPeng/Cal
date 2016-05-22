@@ -110,11 +110,34 @@ public class CalFrame extends JFrame {
                        jTextField.setText(result);
                        result = null;
                        return;
-                   }else if (cmd.equals("C")){
+                   }else if (cmd.equals("C")||cmd.equalsIgnoreCase("CE")){
                        result = calService.clearAll();
                        jTextField.setText(result);
                        result = null;
                        return;
+                   }else if (cmd.equalsIgnoreCase("MS")){
+                       calService.setOldNum(jTextField.getText());
+                   }else if (cmd.equalsIgnoreCase("MR")){
+                       if (calService.getOldNum()==null){
+                           jTextField.setText("0");
+                       }
+                       else jTextField.setText(calService.getOldNum());
+                       result = null;
+                       return;
+                   }else if (cmd.equalsIgnoreCase("MC")){
+                       calService.setOldNum(null);
+                       jTextField.setText("0");
+                       result = null;
+                       return;
+                   }else if (cmd.equalsIgnoreCase("+/-")){
+                       calService.calMethod(cmd,jTextField.getText());
+                       result = calService.syns(jTextField.getText());
+                       jTextField.setText(result);
+
+
+                   }
+                   else if (cmd.equalsIgnoreCase("M+")){
+                       result = String.valueOf((MyMath.add(calService.getDouble(calService.getOldNum()),calService.getDouble(jTextField.getText()))));
                    }else if (cmd.equals("Back")){
                        result = calService.calMethod(cmd,jTextField.getText());
                      }
